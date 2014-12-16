@@ -35,17 +35,18 @@ the cmd line above will start EAP6 using a cluster profile (standalone-ha.xml)
 
 ```
 sudo docker run -d --name eap6_x -p 8080:8080 rsoares/rhel7:jboss-eap6 /opt/jboss-eap-6.3/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 -c standalone-ha.xml -Djboss.socket.binding.port-offset=0 -Djboss.node.name=node_x
+
 ```
 
-note: if you want to change the defaul binding ports used by JBoss EAP use the
-```-Djboss.socket.binding.port-offset=0```
-
-where you see 'x' in the 'eap6_x' and '-Djboss.node.name=node_x' set your own 'id' for that JBoss EAP standalone instance.
+note: if you want to change the defaul binding ports used by JBoss EAP use the `-Djboss.socket.binding.port-offset=0`
+   Where you see `x` in the `eap6_x` and `-Djboss.node.name=node_x` set your own `id` for that JBoss EAP standalone instance.
 
 
 * to enable JBoss Clustering Subsystem tracing add the following logger categories using Admin console or jboss-cli.sh
 attach to the conatiner' bash and...
+
 ```
 cd $JBOSS_HOME/bin
 ./jboss-cli.sh --connect --commands='/subsystem=logging/logger=org.jgroups:add(level=TRACE)','/subsystem=logging/logger=org.infinispan:add(level=TRACE)'
 ```
+

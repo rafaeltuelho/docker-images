@@ -51,5 +51,20 @@ So in order to install them into the Container your RHEL 7 Host must be subscrib
 
 To subscribe the RHEL 7 Host use the following procedures:
 
+ * list the JBoss repos
+```
+subscription-manager repos --list | grep jb-
+yum repolist all | grep jb-
+```
 
+ * subscribe using yum-config-manager
+```
+yum-config-manager --enable jb-eap-6-for-rhel-7-server-rpms
+yum-config-manager --enable jb-ews-2-for-rhel-7-server-rpms
+```
 
+ * subscribe using subscription-manager (recomended)
+```
+subscription-manager repos --enable=jb-eap-6-for-rhel-7-server-rpms
+subscription-manager repos --enable=jb-ews-2-for-rhel-7-server-rpms
+```

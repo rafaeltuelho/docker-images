@@ -2,15 +2,16 @@ FROM rsoares/rhel7:openjdk7
 
 MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
 
-RUN yum -y update; yum clean all
+RUN yum -y update; \
+    yum clean all
 
-ADD software/jboss-eap-6.3.0.zip /tmp/software/
+COPY software/jboss-eap-6.3.0.zip /tmp/software/
 
 RUN unzip -q /tmp/software/jboss-eap-6.3.0.zip -d /opt
 
 WORKDIR /opt/jboss-eap-6.3/bin
-RUN ./add-user.sh -u admin -p jboss@eap6! -s;\
-    echo net.ipv4.icmp_echo_ignore_broadcasts=0 >> /etc/sysctl.conf
+
+RUN ./add-user.sh -u admin -p jboss@eap6! -s
 
 ENV JAVA_HOME /usr/lib/jvm/java
 ENV JBOSS_HOME /opt/jboss-eap-6.3

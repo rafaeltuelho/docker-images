@@ -11,32 +11,28 @@ MAINTAINER Rafael T. C. Soares <rsoares@redhat.com>
 
 # Update image
 RUN yum update -y
-RUN yum install -y unzip httpd22 httpd22-devel mod_auth_kerb-eap6 apr-util-ldap krb5-workstation elinks mod_cluster-native.x86_64
+RUN yum install -y unzip httpd22 httpd22-devel mod_auth_kerb-eap6 apr-util-ldap krb5-workstation elinks mod_cluster-native.x86_64 net-tools telnet procps-ng;yum clean all
 
-RUN mkdir /opt/redhat
-RUN mkdir /tmp/software
+COPY software/jboss-ews-httpd-2.1.0-RHEL7-x86_64.zip /tmp/
 
-ADD software/jboss-ews-httpd-2.1.0-RHEL7-x86_64.zip /tmp/software/
+RUN unzip -q /tmp/jboss-ews-httpd-2.1.0-RHEL7-x86_64.zip -d /opt
 
-RUN unzip -q /tmp/software/jboss-ews-httpd-2.1.0-RHEL7-x86_64.zip -d /opt/redhat
+RUN sed -i -e "s/Allow from 127.0.0.1/Allow from 172.17.0./" /etc/httpd22/conf.d/mod_cluster.conf;\
+    sed -i -e "s/Allow from 127.0.0.1/Allow from all/" /etc/httpd22/conf.d/mod_cluster.conf;\
+    sed -i -e "s/#HTTPD/HTTPD/" /etc/sysconfig/httpd22;\
+    ln -s /etc/httpd22/conf.d/mod_cluster.conf /opt/jboss-ews-2.1/httpd/conf.d/mod_cluster.conf;\
+    echo net.ipv4.icmp_echo_ignore_broadcasts=0 >> /etc/sysctl.conf
 
-RUN sed -i -e "s/Allow from 127.0.0.1/Allow from 172.17.42./g" /etc/httpd22/conf.d/mod_cluster.conf
-RUN ln -s /etc/httpd22/conf.d/mod_cluster.conf /opt/redhat/jboss-ews-2.1/httpd/conf.d/mod_cluster.conf
-
-#RUN groupadd -g 48 -r apache
-#RUN useradd -c "Apache" -u 48 -g apache -s /bin/sh -r apache
-
-WORKDIR /opt/redhat/jboss-ews-2.1/httpd 
+WORKDIR /opt/jboss-ews-2.1/httpd 
 RUN ./.postinstall
 
-RUN chown -R apache:apache /opt/redhat/jboss-ews-2.1/httpd
-
-RUN echo 0 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
+RUN chown -R apache:apache /opt/jboss-ews-2.1/httpd 
+# need /usr/sbin/sysctl (mount with -v from the host FS)
+#RUN sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=0
 
 # Clean up
-RUN rm -rf /tmp/software
+RUN rm -f /tmp/jboss*.zip
 
-EXPOSE 22 80 6666
+EXPOSE 80 6666
 
-ENTRYPOINT ["/usr/sbin/httpd"] 
-CMD ["-D FOREGROUND"]
+CMD ["/opt/jboss-ews-2.1/httpd/sbin/httpd","-D","FOREGROUND"]

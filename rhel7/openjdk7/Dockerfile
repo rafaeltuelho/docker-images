@@ -6,7 +6,7 @@ MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
 RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
 
 RUN yum -y update; \
-yum -y install iproute iputils net-tools openssh-clients nmap-ncat telnet \
+yum -y install iproute iputils net-tools openssh-clients nmap-ncat telnet procps-ng \
 xterm which vim sudo unzip \
 java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64; \
 yum clean all

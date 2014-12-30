@@ -1,4 +1,4 @@
-FROM rsoares/rhel7:openjdk7
+FROM rsoares/rhel7-openjdk:7
 
 MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
 
@@ -6,6 +6,7 @@ RUN yum -y update; \
     yum clean all
 
 COPY software/jboss-eap-6.3.0.zip /tmp/software/
+COPY support/init.sh /
 
 RUN unzip -q /tmp/software/jboss-eap-6.3.0.zip -d /opt
 
@@ -18,4 +19,4 @@ ENV JBOSS_HOME /opt/jboss-eap-6.3
 
 EXPOSE 4447 8080 9990 9999
 
-CMD ["/opt/jboss-eap-6.3/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement=0.0.0.0"]
+ENTRYPOINT ["/init.sh"]

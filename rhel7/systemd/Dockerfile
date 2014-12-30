@@ -1,4 +1,4 @@
-FROM redhat/rhel7:basic-tools
+FROM redhat/rhel7-basic-tools
 
 MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
 

@@ -1,8 +1,8 @@
-FROM rsoares/rhel7-basic-tools
+FROM rsoares/centos7-basic-tools
 
-MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
+MAINTAINER "Rafael T. C. Soares" <rafaelcba@gmail.com>
 
-# Due a conflict with fakesystemd provided by rhel7 base image
+# Due a conflict with fakesystemd provided by centos7 base image
 RUN yum -y update; \
     yum -y swap -- remove fakesystemd -- install systemd systemd-libs; \
     yum -y install java-1.7.0-openjdk.x86_64 java-1.7.0-openjdk-devel.x86_64; \

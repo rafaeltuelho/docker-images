@@ -5,11 +5,11 @@ Ref: https://docs.docker.com/examples/running_ssh_service/
 
 * to Build
 
-```sudo docker build --force-rm -t <username>/rhel7:ssh-server```
+```sudo docker build --force-rm -t <username>/rhel7-ssh-server .```
  
 * to Run
 
-```sudo docker run -d --name rhel7-sshserver  <username>/rhel7:ssh-server```
+```sudo docker run -d --name rhel7-sshserver  <username>/rhel7-ssh-server```
 
 * now you can use
 

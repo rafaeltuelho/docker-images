@@ -1,9 +1,8 @@
-FROM registry.access.redhat.com/rhel:latest
+FROM centos:latest
 
-MAINTAINER "Rafael T. C. Soares" <rsoares@redhat.com>
+MAINTAINER "Rafael T. C. Soares" <rafaelcba@gmail.com>
 
 RUN yum -y update; \
-    yum -y swap -- remove fakesystemd -- install systemd systemd-libs; \
     yum -y install redhat-lsb-core iproute iputils net-tools nmap-ncat telnet procps-ng xterm which vim sudo unzip; \
     yum clean all
 

@@ -3,11 +3,11 @@ All of my rhel 7 images extend this. So if you want to build one of them, this o
 
 * to Build
 
-  ```sudo docker build --force-rm -t rsoares/rhel7:basic-tools ```
+  ```sudo docker build --force-rm -t username/rhel7-basic-tools . ```
 
 * to Run
 
-  ```sudo docker run -ti --name rhel7 <username>/rhel7:basic-tools```
+  ```sudo docker run -ti --name rhel7 <username>/rhel7-basic-tools```
 
 * to access the Container's bash
 

@@ -1,10 +1,10 @@
 * to Build
 
-  ```sudo docker build --force-rm -t rsoares/rhel7:jboss-ews-2.1_mod_cluster ```
+  ```sudo docker build --force-rm -t <username>/rhel7-jboss-ews:2.1_mod_cluster . ```
 
 * to Run
 
-  ```sudo docker run -d --privileged -p 80:80 -p 6666:6666 --name ews <username>/rhel7:jboss-ews-2.1_mod_cluster```
+  ```sudo docker run -d --privileged -p 80:80 -p 6666:6666 --name ews <username>/rhel7-jboss-ews:2.1_mod_cluster```
 
 * to access the Container's bash
 

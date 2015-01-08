@@ -4,7 +4,7 @@
 
 * to Run
 
-  ```sudo docker run -ti --name eap6 <username>/rhel7-jboss-eap6```
+  ```sudo docker run -ti --rm --name eap6 <username>/rhel7-jboss-eap6 .```
 
 * to access the Container's bash
 
@@ -34,7 +34,7 @@ the cmd line above will start EAP6 using a cluster profile (standalone-ha.xml)
 * to start multiples containers with EAP in standalone mode (and clustered profile) use:
 
 ```
-sudo docker run -d --name eap6_x -p 8080:8080 rsoares/rhel7-jboss-eap6 -c standalone-ha.xml 
+sudo docker run -d --name nodeX -h nodeX -p 8080 rsoares/rhel7-jboss-eap6 -c standalone-ha.xml 
 
 ```
 
@@ -45,7 +45,7 @@ note: if you want to change the defaul binding ports used by JBoss EAP use the `
 attach to the conatiner' bash and...
 
 ```
-sudo docker exec -ti eap6 /bin/bash
+sudo docker exec -ti nodeX /bin/bash
 
 cd $JBOSS_HOME/bin
 ./jboss-cli.sh --connect --commands='/subsystem=logging/logger=org.jgroups:add(level=TRACE)','/subsystem=logging/logger=org.infinispan:add(level=TRACE)'
